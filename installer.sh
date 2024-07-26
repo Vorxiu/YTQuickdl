@@ -15,18 +15,18 @@ print() {
 
 # Request storage permission
 print blue "Allow storage permission"
-sleep 1
 termux-setup-storage || print red "Couldn't get storage permissions"
-
+sleep 2
 # Update packages
 print blue "Updating packages"
 pkg update -y && pkg upgrade -y || print red "Failed to update packages"
-
+clear
 # Install termux-api
 print yellow "Installing termux-api"
 pkg install termux-api -y || print red "Couldn't install termux-api"
+clear
 print yellow "Make sure you have installed the Termux API APK from F-Droid or GitHub based on your initial Termux installation"
-sleep 2
+sleep 3
 
 # Install required packages
 print blue "Installing ffmpeg, jq, libexpat, and openssl"
@@ -39,6 +39,8 @@ pkg install openssl -y || print red "Could not install openssl"
 print blue "Installing Python and yt-dlp"
 pkg install python -y || print red "Could not install Python"
 pip install -U "yt-dlp[default]" || print red "Could not install yt-dlp"
+sleep 2
+clear
 
 # Create bin directory if it doesn't exist
 mkdir -p $HOME/bin || print red "Could not create bin directory"
