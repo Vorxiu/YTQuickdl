@@ -130,6 +130,7 @@ termux-toast -g bottom -b black -c green -s "$download_dir" || \
   pip install --upgrade yt-dlp  && \
   yt-dlp $sub $metadata -f "$format" -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
 
+termux-toast -s -g bottom -b black -c green "$download_dir"
 echo "Downloaded into $download_dir"
 #removing wake-lock
 termux-wake-unlock || print green "Done"
