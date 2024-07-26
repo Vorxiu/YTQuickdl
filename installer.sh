@@ -12,7 +12,7 @@ print() {
         *) echo "$text" ;;
     esac
 }
-
+termux-wake-lock
 # Request storage permission
 print blue "Allow storage permission"
 termux-setup-storage || print red "Couldn't get storage permissions"
@@ -58,6 +58,7 @@ pkg clean
 pkg autoclean
 
 clear
+termux-wake-unlock
 #----------------------------------
 sleep 2
 print green "Starting config script required"
