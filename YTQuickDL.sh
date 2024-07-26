@@ -75,12 +75,12 @@ if [ "$TYPE" = "Video" ]; then
 	# Set yt-dlp options based on user choice
     case $QUALITY in
         "Best Quality") FORMAT="bestvideo[ext=mp4]+bestaudio[ext=flac]/best" ;;
-	"1080p") FORMAT="bestvideo[height<=1080][ext=mp4]+bestaudio/best[height<=1080]" ;;
-        "720p") FORMAT="bestvideo[height<=720][ext=mp4]+bestaudio/best[height<=720]" ;;
-        "480p") FORMAT="bestvideo[height<=480][ext=mp4]+bestaudio/best[height<=480]" ;;
-        "360p") FORMAT="bestvideo[height<=360][ext=mp4]+bestaudio/best[height<=360]" ;;
-        "240p") FORMAT="bestvideo[height<=240][ext=mp4]+bestaudio/best[height<=240]" ;;
-	"144p") FORMAT="bestvideo[height<=150][ext=mp4]+bestaudio/best[height<=150]" ;;
+	"1080p") FORMAT="bestvideo[height<=1080]+bestaudio/best[height<=1080]" ;;
+        "720p") FORMAT="bestvideo[height<=720]+bestaudio/best[height<=720]" ;;
+        "480p") FORMAT="bestvideo[height<=480]+bestaudio/best[height<=480]" ;;
+        "360p") FORMAT="bestvideo[height<=360]+bestaudio/best[height<=360]" ;;
+        "240p") FORMAT="bestvideo[height<=240]+bestaudio/best[height<=240]" ;;
+	"144p") FORMAT="bestvideo[height<=150]+bestaudio/best[height<=150]" ;;
     esac
 elif [ "$TYPE" = "Audio" ]; then
 	#Ask user for audio Quality
