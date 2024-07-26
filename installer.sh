@@ -51,8 +51,14 @@ curl -o $HOME/bin/YTQuickDL.sh https://raw.githubusercontent.com/Vorxiu/YTQuickd
 curl -o $HOME/bin/QuickConfigs.sh https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/QuickConfigs.sh && chmod +x $HOME/bin/QuickConfigs.sh || print red "Failed to download QuickConfigs.sh"
 curl -o $HOME/bin/termux-url-opener https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/termux-url-opener && chmod +x $HOME/bin/termux-url-opener || print red "Failed to download termux-url-opener"
 print green "installation complete"
+
+#clearing cache
+print blue "Freeing up space"
+pkg clean
+pkg autoclean
+
 clear
 #----------------------------------
-
+sleep 2
 print green "Starting config script required"
 bash $HOME/bin/QuickConfigs.sh || print red "couldn't start config script run it manually by:cd bin && bash QuickConfigs.sh"
