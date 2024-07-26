@@ -178,13 +178,13 @@ cat > temp.sh << EOF
 
 QuickDownload() {
   FORMAT="$format_string"
-  recode="$format"
+  recode="--recode-video $format"
   download_dir="/sdcard$Qdir"
 }
 
 # Default Options
 recode="--recode-video $Videoformat"
-audiorecode="--recode -video $Audioformat"
+audiorecode="--recode-video $Audioformat"
 sub="$sub"
 metadata="$metadata $thumbnail $sponsorblock"
 download_dir="/sdcard$refdl_dir"
