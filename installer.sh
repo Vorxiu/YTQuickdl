@@ -38,7 +38,7 @@ pkg install openssl -y || print red "Could not install openssl"
 # Install Python and yt-dlp
 print blue "Installing Python and yt-dlp"
 pkg install python -y || print red "Could not install Python"
-pip install -U "yt-dlp[default]" || print red "Could not install yt-dlp"
+pip install yt-dlp || print red "Could not install yt-dlp"
 sleep 2
 clear
 
