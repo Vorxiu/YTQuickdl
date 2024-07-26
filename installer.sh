@@ -25,8 +25,8 @@ clear
 print yellow "Installing termux-api"
 pkg install termux-api -y || print red "Couldn't install termux-api"
 clear
-print yellow "Make sure you have installed the Termux API APK from F-Droid or GitHub based on your initial Termux installation"
-sleep 3
+echo "Make sure you have installed the Termux API APK from F-Droid or GitHub based on your initial Termux installation"
+sleep 2
 
 # Install required packages
 print blue "Installing ffmpeg, jq, libexpat, and openssl"
