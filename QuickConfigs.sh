@@ -103,7 +103,7 @@ Videoformat=$(prompt_radio "Choose preferred video extension" "mp4,webm,flv,ogg,
 echo -e "\e[32mVideo extension set to $Videoformat\e[0m"
 # Prompt the user for the download directory
 
-default_download_dir="/Download/YTQuickDL"
+default_download_dir="/Download/YTQuickdl"
 refdl_dir=$(prompt_text "Enter the download directory" "$default_download_dir")
 echo -e "\e[32mDownload directory set to $refdl_dir\e[0m"
 
