@@ -192,10 +192,10 @@ download_dir="/sdcard$refdl_dir"
 EOF
 
 # Append the existing script to the temporary file
-cat YTQuickDL.sh >> temp.sh
+cat "$HOME/bin/YTQuickDL.sh" >> temp.sh
 # Replace the original script with the temporary file
-mv temp.sh YTQuickDL.sh
-chmod +x YTQuickDL.sh
+mv temp.sh "$HOME/bin/YTQuickDL.sh"
+chmod +x "$HOME/bin/YTQuickDL.sh"
 
-echo "Final download dir $download_dir"
+echo "$download_dir"
 echo -e "\e[32mYTQuickDL configured\e[0m"
