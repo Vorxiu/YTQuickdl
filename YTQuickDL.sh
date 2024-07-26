@@ -108,7 +108,7 @@ esac
 
    else
   FORMAT="bestaudio[ext=flac]/bestaudio[ext=m4a]/bestaudio[ext=mp3]/bestaudio"
-  recode="flac"
+  recode="--recode-video flac"
   format="bestaudio/best"
   sub="--no-write-sub"
   metadata=""
@@ -128,7 +128,7 @@ termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt
 termux-toast -g bottom -b black -c green -s "$download_dir" || \
 { termux-toast -g top -b amber -c black "Something went wrong with yt-dlp";
   pip install --upgrade yt-dlp  && \
-  yt-dlp $sub $metadata -f "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
+  yt-dlp $sub $metadata -f "$format" -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
 
 echo "Downloaded into $download_dir"
 #removing wake-lock
