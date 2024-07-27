@@ -1,4 +1,4 @@
-#Features
+# Features
 -Simple GUI for yt-dlp 
 -Easy installation
 -setupMultiple configurations for different use cases easily 
