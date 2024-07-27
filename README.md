@@ -10,10 +10,14 @@
 - curl
 # Installation 
 
-
-``` pkg update -y && PKG upgrade -y
-
-``` pkg install curl -y
+```bash
+pkg update -y && pkg upgrade -y
+```
 
 ```bash
-curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && chmod +x installer.sh  && ./installer.sh
+pkg install curl -y
+```
+
+```bash
+curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && chmod +x installer.sh && ./installer.sh
+```
