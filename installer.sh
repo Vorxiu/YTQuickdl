@@ -36,8 +36,10 @@ pkg install libexpat -y || print red "Could not install libexpat"
 pkg install openssl -y || print red "Could not install openssl"
 
 # Install Python and yt-dlp
-print blue "Installing Python and yt-dlp"
+print blue "Installing Python"
 pkg install python -y || print red "Could not install Python"
+clear 
+print blue "Installating yt-dlp "
 pip install yt-dlp || print red "Could not install yt-dlp"
 sleep 2
 clear
