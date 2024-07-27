@@ -24,6 +24,9 @@ pkg install curl -y
 ```bash
 curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && chmod +x installer.sh && ./installer.sh
 ```
+The installer will automatically install and configure the script.
+if you don't want the UI you can uninstall termux-api
+
 
 Todo
 - Spotify support
