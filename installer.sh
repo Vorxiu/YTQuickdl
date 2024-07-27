@@ -54,11 +54,10 @@ print green "installation complete"
 
 #clearing cache
 print blue "Freeing up space"
-pkg clean
-pkg autoclean
+pkg autoclean || print red "couldn't clear apt cache"
 
 clear
-termux-wake-unlock
+termux-wake-unlock || print "couldn't free wake lock"
 #----------------------------------
 sleep 2
 print green "Starting config script required"
