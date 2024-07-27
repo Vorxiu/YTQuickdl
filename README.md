@@ -23,3 +23,7 @@ pkg install curl -y
 ```bash
 curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && chmod +x installer.sh && ./installer.sh
 ```
+
+Todo
+- Spotify support
+- Cookie support
