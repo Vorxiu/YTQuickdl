@@ -14,14 +14,6 @@ Note : if termux-api is not working properly the script will fallback to bash
 # Installation 
 
 ```bash
-pkg update -y && pkg upgrade -y
-```
-
-```bash
-pkg install curl -y
-```
-
-```bash
 curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && chmod +x installer.sh && ./installer.sh
 ```
 The installer will automatically install and configure the script.
