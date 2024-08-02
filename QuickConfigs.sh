@@ -23,7 +23,7 @@ prompt_radio() {
   local result
 
   if command -v termux-dialog &> /dev/null; then
-    result=$(termux-dialog radio -t "$title" -v "$options" | jq -r '.text // .')
+    result=$(termux-dialog spinner -t "$title" -v "$options" | jq -r '.text // .')
     echo "$result"
   else
     echo "$title" >&2
