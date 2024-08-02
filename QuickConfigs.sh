@@ -109,7 +109,7 @@ echo -e "\e[32mDownload directory set to $refdl_dir\e[0m"
 
 
 # Choose between audio and video
-media_type=$(prompt_radio "Choose media type for Quick Download" "audio,video")
+media_type=$(prompt_radio "Choose media type for Quick Download" "video,audio")
 echo -e "\e[32mMedia type selected for Quick Download: $media_type\e[0m"
 
 if [ "$media_type" = "audio" ]; then
