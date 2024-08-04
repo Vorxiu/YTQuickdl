@@ -55,7 +55,6 @@ error_check() {
 #trap error_check ERR
 
 #>---------------------[Main Script]---------------------------<
-download_dir="/sdcard/Download/YTQuickDL"
 
 # Get the shared URL
 URL="$1"
@@ -101,8 +100,7 @@ esac
 
  elif [ "$TYPE" = "QuickDownload" ]; then
 	QuickDownload
-
-   else
+   else #Music Options
   FORMAT="bestaudio[ext=flac]/bestaudio[ext=m4a]/bestaudio[ext=mp3]/bestaudio"
   recode="--recode-video flac"
   format="bestaudio/best"
@@ -119,7 +117,7 @@ echo "$Quality Final variables $download_dir $metadata $FORMAT $recode  $PLAYLIS
 termux-toast -s  -g top -c gray -b black "$TYPE download Started..." || print green "$TYPE download Started..."
 print green "Download will continue in background"
 #--------[Main Yt-dl Command]-----------
-yt-dlp $sub  $metadata -f "$FORMAT" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
+yt-dlp $sub  $metadata -f "$FORMAT" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt" && \
 termux-toast -g bottom -b black -c green -s "$download_dir" || \
 { termux-toast -g top -b amber -c black "Something went wrong with yt-dlp";
