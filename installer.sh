@@ -13,6 +13,8 @@ print() {
     esac
 }
 termux-wake-lock
+clear
+echo "Starting..."
 # Request storage permission
 print blue "Allow storage permission"
 termux-setup-storage || print red "Couldn't get storage permissions"
@@ -25,7 +27,7 @@ clear
 print yellow "Installing termux-api"
 pkg install termux-api -y || print red "Couldn't install termux-api"
 clear
-echo "Make sure you have installed the Termux API APK from F-Droid or GitHub based on your initial Termux installation"
+echo -e "\e[33mMake sure you have installed the Termux API APK from F-Droid or GitHub based on your initial Termux installation\e[0m"
 sleep 2
 
 # Install required packages
