@@ -73,20 +73,16 @@ if [ "$TYPE" = "Video" ]; then
 	QUALITY_RESPONSE=$(show_dialog "Select Video Quality" "Best Quality,144p,240p,360p,480p,720p,1080p")
 	QUALITY=$(echo $QUALITY_RESPONSE | jq  -r .text)
 	# Set yt-dlp options based on user choice
-    case $QUALITY in
-        "Best Quality") FORMAT="bestvideo[ext=mp4]+bestaudio[ext=flac]/best" ;;
-	"1080p") FORMAT="bestvideo[height<=1080]+bestaudio/best[height<=1080]" ;;
-        "720p") FORMAT="bestvideo[height<=720]+bestaudio/best[height<=720]" ;;
-        "480p") FORMAT="bestvideo[height<=480]+bestaudio/best[height<=480]" ;;
-        "360p") FORMAT="bestvideo[height<=360]+bestaudio/best[height<=360]" ;;
-        "240p") FORMAT="bestvideo[height<=240]+bestaudio/best[height<=240]" ;;
-	"144p") FORMAT="bestvideo[height<=150]+bestaudio/best[height<=150]" ;;
-    esac
+    if [ "$QUALITY" = "Best" ]; then
+         FORMAT="bestvideo[ext=mp4]+bestaudio[ext=flac]/best"
+    else
+	 FORMAT="bestvideo[height<=${QUALITY%%p*}]+bestaudio/best[height<=${QUALITY%%p*}]"
+    fi
+
 elif [ "$TYPE" = "Audio" ]; then
 	#Ask user for audio Quality
 	QUALITY_RESPONSE=$(show_dialog "Select audio Quality" "Best,High,medium,low,lowest")
         QUALITY=$(echo $QUALITY_RESPONSE | jq -r .text)
-        
 	#Error handling if format isnt supported
 	format="bestaudio/best"
 	#subtitle handling
