@@ -72,10 +72,10 @@ if [ "$TYPE" = "Video" ]; then
 	QUALITY_RESPONSE=$(show_dialog "Select Video Quality" "Best Quality,144p,240p,360p,480p,720p,1080p")
 	QUALITY=$(echo $QUALITY_RESPONSE | jq  -r .text)
 	# Set yt-dlp options based on user choice
-    if [ "$QUALITY" = "Best" ]; then
-         FORMAT="bestvideo[ext=mp4]+bestaudio[ext=flac]/best"
+    if [ "$QUALITY" = "Best Quality" ]; then
+         FORMAT="bestvideo[ext=$recode]+bestaudio/best"
     else
-	 FORMAT="bestvideo[height<=${QUALITY%%p*}]+bestaudio/best[height<=${QUALITY%%p*}]"
+	 FORMAT="bestvideo[height<=${QUALITY%%p*}][ext=$recode]+bestaudio/best[height<=${QUALITY%%p*}]"
     fi
 
 elif [ "$TYPE" = "Audio" ]; then
@@ -108,7 +108,7 @@ esac
   metadata=""
   download_dir="$download_dir/Music"
   fi
-  echo  "Quality selection complete $QUALITY \n Using directory $download_dir"
+  echo "Quality selection complete $QUALITY Using directory $download_dir"
   mkdir -p "$download_dir"
 #-------------------------------------
 echo "$Quality Final variables $download_dir $metadata $FORMAT $recode  $PLAYLIST  $URL"

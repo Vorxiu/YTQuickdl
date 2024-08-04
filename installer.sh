@@ -38,7 +38,7 @@ pkg install openssl -y || print red "Could not install openssl"
 # Install Python and yt-dlp
 print blue "Installing Python"
 pkg install python -y || print red "Could not install Python"
-clear 
+clear
 print blue "Installating yt-dlp "
 pip install yt-dlp || print red "Could not install yt-dlp"
 sleep 2
@@ -53,14 +53,14 @@ curl -o $HOME/bin/YTQuickDL.sh https://raw.githubusercontent.com/Vorxiu/YTQuickd
 curl -o $HOME/bin/QuickConfigs.sh https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/QuickConfigs.sh && chmod +x $HOME/bin/QuickConfigs.sh || print red "Failed to download QuickConfigs.sh"
 curl -o $HOME/bin/termux-url-opener https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/termux-url-opener && chmod +x $HOME/bin/termux-url-opener || print red "Failed to download termux-url-opener"
 print green "installation complete"
-
+clear
 #clearing cache
 print blue "Freeing up space"
 pkg autoclean || print red "couldn't clear apt cache"
 
-clear
 termux-wake-unlock || print "couldn't free wake lock"
-#----------------------------------
 sleep 2
+
 print green "Starting config script required"
+echo "======================================================="
 bash $HOME/bin/QuickConfigs.sh || print red "couldn't start config script run it manually by:cd bin && bash QuickConfigs.sh"
