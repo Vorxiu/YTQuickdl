@@ -1,6 +1,5 @@
 
 #-----Fallback Format-------
-format="bestvideo+bestaudio/best"
 
 #Function to handle termux dialog and bash fallback
 show_dialog() {
@@ -34,7 +33,6 @@ show_dialog() {
         fi
     done
 }
-
 # Function to print colored output
 print() {
     local color=$1
@@ -73,8 +71,10 @@ if [ "$TYPE" = "Video" ]; then
 	QUALITY=$(echo $QUALITY_RESPONSE | jq  -r .text)
 	# Set yt-dlp options based on user choice
     if [ "$QUALITY" = "Best Quality" ]; then
-         FORMAT="bestvideo[ext=$recode]+bestaudio/best"
+         FORMAT="bestvideo[ext=$recode]+bestaudio/best[ext=$recode]"
+	 format="bestvideo+bestaudio/best"
     else
+	 format="bestvideo[height<=${QUALITY%%p*}]+bestaudio/best[height<=${QUALITY%%p*}]"
 	 FORMAT="bestvideo[height<=${QUALITY%%p*}][ext=$recode]+bestaudio/best[height<=${QUALITY%%p*}]"
     fi
 
@@ -100,7 +100,8 @@ esac
 
  elif [ "$TYPE" = "QuickDownload" ]; then
 	QuickDownload
-   else #Music Options
+
+  else #Music Options
   FORMAT="bestaudio[ext=flac]/bestaudio[ext=m4a]/bestaudio[ext=mp3]/bestaudio"
   recode="--recode-video flac"
   format="bestaudio/best"
@@ -122,7 +123,7 @@ termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt
 termux-toast -g bottom -b black -c green -s "$download_dir" || \
 { termux-toast -g top -b amber -c black "Something went wrong with yt-dlp";
   pip install --upgrade yt-dlp  && \
-  yt-dlp $sub $metadata -f "$format" -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
+  yt-dlp -f "$format" -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
 
 termux-toast -s -g bottom -b black -c green "$download_dir"
 echo "Downloaded into $download_dir"
