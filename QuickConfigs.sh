@@ -57,21 +57,6 @@ prompt_confirm() {
   fi
 }
 
-# Function to prompt download manager choice
-prompt_download_manager() {
-  local choice
-  choice=$(termux-dialog radio -t "Choose Download Manager" -v "Default,aria2c" | jq -r '.text')
-
-  case "$choice" in
-    "aria2c")
-      echo "--external-downloader aria2c --external-downloader-args \"-x 16 -s 16 -k 1M\""
-      ;;
-    *)
-      echo ""
-      ;;
-  esac
-}
-
 # Function to select subtitles
 select_subtitles() {
   local subtitle_options="none,all,auto-generated"
@@ -91,7 +76,7 @@ select_subtitles() {
   fi
 }
 
-# Main script starts here
+# --------------------[Main script]-------------------
 echo "YT-DLP Options Configuration Script"
 
 # Audio options
@@ -104,16 +89,16 @@ echo -e "\e[32mVideo extension set to $Videoformat\e[0m"
 # Prompt the user for the download directory
 
 default_download_dir="/Download/YTQuickdl"
-refdl_dir=$(prompt_text "Enter the download directory" "$default_download_dir")
+refdl_dir=$(prompt_text "Download directory" "$default_download_dir")
 echo -e "\e[32mDownload directory set to $refdl_dir\e[0m"
 
 
 # Choose between audio and video
-media_type=$(prompt_radio "Choose media type for Quick Download" "video,audio")
+media_type=$(prompt_radio "Media type for Quick Download" "video,audio")
 echo -e "\e[32mMedia type selected for Quick Download: $media_type\e[0m"
 
 if [ "$media_type" = "audio" ]; then
-  Audioquality=$(prompt_radio "Choose audio quality for Quick Download" "0 (best),1,2,3,4,5,6,7,8,9 (worst)")
+  Audioquality=$(prompt_radio "Audio quality for Quick Download" "0 (best),1,2,3,4,5,6,7,8,9 (worst)")
   format=$(prompt_radio "Choose preferred Quick Download audio extension" "best,aac,flac,mp3,m4a,opus,vorbis,wav")
   echo -e "\e[32mAudio format for quick download set to $format\e[0m"
   Qdir="$refdl_dir/Audio" #QuickDl Audio directory
