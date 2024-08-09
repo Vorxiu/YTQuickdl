@@ -19,6 +19,9 @@ curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && 
 The installer will automatically install and configure the script.
 if you don't want the UI you can uninstall termux-api
 
+Updates
+
+-initial aria2c support
 
 Todo
 - Spotify support
