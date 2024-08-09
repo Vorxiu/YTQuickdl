@@ -118,14 +118,11 @@ echo "$Quality Final variables $download_dir $metadata $FORMAT $recode  $PLAYLIS
 termux-toast -s  -g top -c gray -b black "$TYPE download Started..." || print green "$TYPE download Started..."
 print green "Download will continue in background"
 #--------[Main Yt-dl Command]-----------
-yt-dlp $sub  $metadata -f "$FORMAT" --recode-video $recode $downloader  -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
-termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt" && \
-termux-toast -g bottom -b black -c green -s "$download_dir" || \
+yt-dlp $sub  $metadata -f "$FORMAT" --recode-video $recode $downloader -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
+termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt" || \
 { termux-toast -g top -b amber -c black "Something went wrong with yt-dlp";
   pip install --upgrade yt-dlp  && \
   yt-dlp -f "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
 
-termux-toast -s -g bottom -b black -c green "$download_dir"
 echo "Downloaded into $download_dir"
-#removing wake-lock
-termux-wake-unlock || print green "Done"
+termux-wake-unlock

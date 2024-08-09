@@ -84,7 +84,7 @@ download_manager() {
 
   case "$downloadmanager" in
       "default") echo "" ;;
-      "aria2c") echo "--external-downloader aria2 --external-downloader-args \"-x 16 -k 1M\"" ;;
+      "aria2c") echo "--external-downloader aria2c" ;;
       *) echo "" ;;
    esac
 }
@@ -193,3 +193,4 @@ chmod +x "$HOME/bin/YTQuickDL.sh"
 
 echo "$download_dir"
 echo -e "\e[32mYTQuickDL configured\e[0m"
+echo -e "\e[32mNow you can share a video link to termux and it will download it using yt-dlp\e[0m"

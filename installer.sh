@@ -40,7 +40,7 @@ pkg install openssl -y || print red "Could not install openssl"
 # Install Python and yt-dlp
 print blue "Installing Python"
 pkg install python -y || print red "Could not install Python"
-clear
+pkg install aria2 -y || print red "Unable to insall aria2"
 print blue "Installating yt-dlp "
 pip install yt-dlp || print red "Could not install yt-dlp"
 sleep 2
