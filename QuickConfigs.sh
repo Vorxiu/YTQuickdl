@@ -65,7 +65,7 @@ select_subtitles() {
   subtitle_options="$subtitle_options,$common_languages"
 
   if prompt_confirm "Do you want to download subtitles?"; then
-    local subtitle_choice=$(prompt_radio "Choose subtitle option" "$subtitle_options")
+    local subtitle_choice=$(prompt_radio "Subtitle options" "$subtitle_options")
 
     case "$subtitle_choice" in
       "none") return ;;
@@ -75,6 +75,17 @@ select_subtitles() {
     esac
   fi
 }
+
+#download manager
+
+downloadmanager() {
+  local download_options="default,aria2c"
+  download_manager=$(prompt_radio "Download manager?" "$download_options")
+
+  case "$download_manager" in
+      "default") echo "" ;;
+      "aria2c") echo "--external-downloader aria2 --external-downloader-args \"-x 16 -k 1M\"" ;;
+      *) echo "" ;;
 
 # --------------------[Main script]-------------------
 echo "YT-DLP Options Configuration Script"
@@ -112,7 +123,7 @@ if [ "$media_type" = "audio" ]; then
   fi
 else
   #Video Options for Quick download
-  resolution=$(prompt_radio "Choose preferred video resolution" "best,4320p,2160p,1440p,1080p,720p,480p,360p,240p,144p")
+  resolution=$(prompt_radio "Choose preferred video resolution" "best,1440p,1080p,720p,480p,360p,240p,144p")
   format=$(prompt_radio "Choose preferred video extension for Quick Download" "mp4,webm,flv,ogg,mkv,avi")
   echo -e "\e[32mVideo extension for Quick Download set to $format\e[0m"
   Qdir="$refdl_dir"
@@ -153,9 +164,6 @@ else
   metadata=""
 fi
 echo -e "\e[32m$metadata\e[0m"
-
-# Download Manager
-#download_manager=$(prompt_download_manager)
 
 # Create the output script with the function definition
 cat > temp.sh << EOF
