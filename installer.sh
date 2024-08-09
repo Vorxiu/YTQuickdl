@@ -8,7 +8,7 @@ print() {
         red) echo -e "\033[0;31m$text\033[0m" ;;
         green) echo -e "\033[0;32m$text\033[0m" ;;
         yellow) echo -e "\033[0;33m$text\033[0m" ;;
-        blue) echo -e "\033[0;36m$text\033[0m" ;;  # Fixed color code
+        blue) echo -e "\033[0;36m$text\033[0m" ;;
         *) echo "$text" ;;
     esac
 }
@@ -21,8 +21,8 @@ termux-setup-storage || print red "Couldn't get storage permissions"
 sleep 2
 # Update packages
 print blue "Updating packages"
-pkg update -y && pkg upgrade -y || print red "Failed to update packages"
-clear
+pkg update -y && pkg upgrade -y 
+
 # Install termux-api
 print yellow "Installing termux-api"
 pkg install termux-api -y || print red "Couldn't install termux-api"
@@ -40,6 +40,7 @@ pkg install openssl -y || print red "Could not install openssl"
 # Install Python and yt-dlp
 print blue "Installing Python"
 pkg install python -y || print red "Could not install Python"
+print blue "Installing aria2"
 pkg install aria2 -y || print red "Unable to insall aria2"
 print blue "Installating yt-dlp "
 pip install yt-dlp || print red "Could not install yt-dlp"
@@ -55,13 +56,12 @@ curl -o $HOME/bin/YTQuickDL.sh https://raw.githubusercontent.com/Vorxiu/YTQuickd
 curl -o $HOME/bin/QuickConfigs.sh https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/QuickConfigs.sh && chmod +x $HOME/bin/QuickConfigs.sh || print red "Failed to download QuickConfigs.sh"
 curl -o $HOME/bin/termux-url-opener https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/termux-url-opener && chmod +x $HOME/bin/termux-url-opener || print red "Failed to download termux-url-opener"
 print green "installation complete"
-clear
+
 #clearing cache
 print blue "Freeing up space"
 pkg autoclean || print red "couldn't clear apt cache"
-
 termux-wake-unlock || print "couldn't free wake lock"
-sleep 2
+clear
 
 print green "Starting config script required"
 echo "======================================================="

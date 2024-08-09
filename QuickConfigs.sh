@@ -147,7 +147,7 @@ if prompt_confirm "Do you want to embed thumbnails?"; then
 else
   thumbnail=""
 fi
-echo -e "\e[32m$thumbnail\e[0m"
+echo -e "\e[32mthumbnail option:$thumbnail\e[0m"
 
 # SponsorBlock option
 if prompt_confirm "Do you want to use SponsorBlock?"; then
@@ -155,7 +155,7 @@ if prompt_confirm "Do you want to use SponsorBlock?"; then
 else
   sponsorblock=""
 fi
-echo -e "\e[32m$sponsorblock\e[0m"
+echo -e "\e[32mSponsorblock option:$sponsorblock\e[0m"
 
 # Metadata option
 if prompt_confirm "Do you want to add metadata?"; then
@@ -163,7 +163,7 @@ if prompt_confirm "Do you want to add metadata?"; then
 else
   metadata=""
 fi
-echo -e "\e[32m$metadata\e[0m"
+echo -e "\e[32m metadata:$metadata\e[0m"
 
 # Create the output script with the function definition
 cat > temp.sh << EOF
