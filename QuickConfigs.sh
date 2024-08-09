@@ -88,6 +88,7 @@ download_manager() {
       *) echo "" ;;
    esac
 }
+
 # --------------------[Main script]-------------------
 echo "YT-DLP Options Configuration Script"
 
@@ -98,12 +99,11 @@ echo -e "\e[32mAudio format set to $Audioformat\e[0m"
 # Video options
 Videoformat=$(prompt_radio "Choose preferred video extension" "mp4,webm,flv,ogg,mkv,avi")
 echo -e "\e[32mVideo extension set to $Videoformat\e[0m"
-# Prompt the user for the download directory
 
+# Prompt the user for the download directory
 default_download_dir="/Download/YTQuickdl"
 refdl_dir=$(prompt_text "Download directory" "$default_download_dir")
 echo -e "\e[32mDownload directory set to $refdl_dir\e[0m"
-
 
 # Choose between audio and video
 media_type=$(prompt_radio "Media type for Quick Download" "video,audio")
@@ -126,7 +126,7 @@ else
   #Video Options for Quick download
   resolution=$(prompt_radio "Choose preferred video resolution" "best,1440p,1080p,720p,480p,360p,240p,144p")
   format=$(prompt_radio "Choose preferred video extension for Quick Download" "mp4,webm,flv,ogg,mkv,avi")
-  echo -e "\e[32mVideo extension for Quick Download set to $format\e[0m"
+  echo -e "\e[32mVideo extension for Quick Download set to $format & $resolution \e[0m"
   Qdir="$refdl_dir"
   # Construct the format string for video
   if [ "$resolution" = "best" ]; then
@@ -135,7 +135,6 @@ else
     format_string="bestvideo[height<=${resolution%%p*}][ext=$format]+bestaudio[ext=m4a]/best[height<=${resolution%%p*}][ext=$format]/best"
   fi
 fi
-
 
 # Subtitle options
 subtitle_options=$(select_subtitles)
