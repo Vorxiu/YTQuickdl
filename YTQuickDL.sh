@@ -47,10 +47,10 @@ print() {
 
 # Function in case a error occurs
 error_check() {
-	termux-toast -g top  -b red -c black "unexpected error ಠ⁠ ⁠ل͟⁠ ⁠ಠ"||print red "Something went wrong" 
+	termux-toast -g top  -b red -c black "unexpected error ಠ⁠ ⁠ل͟⁠ ⁠ಠ"|| print red "Something went wrong" 
 	termux-wake-unlock || echo "error occured"
 }
-#trap error_check ERR
+trap error_check ERR
 
 #>---------------------[Main Script]---------------------------<
 
@@ -115,8 +115,8 @@ esac
 echo "$Quality Final variables $download_dir $metadata $FORMAT $recode  $PLAYLIST  $URL"
 
 #-----{download started message}-------
-termux-toast -s  -g top -c gray -b black "$TYPE download Started..." || print green "$TYPE download Started..."
-print green "Download will continue in background"
+termux-toast -s  -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
+echo "Download will continue in background"
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub  $metadata -f "$FORMAT" --recode-video $recode $downloader -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt" || \
