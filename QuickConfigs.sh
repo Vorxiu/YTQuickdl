@@ -182,7 +182,7 @@ audiorecode="$Audioformat"
 sub="$sub"
 metadata="$metadata $thumbnail $sponsorblock"
 download_dir="/sdcard$refdl_dir"
-downloader="$(download_mamager)"
+downloader="$(download_manager)"
 
 EOF
 
