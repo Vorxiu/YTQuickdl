@@ -78,11 +78,11 @@ select_subtitles() {
 
 #download manager
 
-downloadmanager() {
+download_manager() {
   local download_options="default,aria2c"
-  download_manager=$(prompt_radio "Download manager?" "$download_options")
+  local  downloadmanager=$(prompt_radio "Download manager?" "$download_options")
 
-  case "$download_manager" in
+  case "$downloadmanager" in
       "default") echo "" ;;
       "aria2c") echo "--external-downloader aria2 --external-downloader-args \"-x 16 -k 1M\"" ;;
       *) echo "" ;;
@@ -181,6 +181,7 @@ audiorecode="$Audioformat"
 sub="$sub"
 metadata="$metadata $thumbnail $sponsorblock"
 download_dir="/sdcard$refdl_dir"
+downloader="$(download_mamager)"
 
 EOF
 
