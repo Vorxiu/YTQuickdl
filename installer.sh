@@ -29,6 +29,8 @@ pkg install termux-api -y || print red "Couldn't install termux-api"
 clear
 echo -e "\e[33mMake sure you have installed the Termux API APK from F-Droid or GitHub based on your initial Termux installation\e[0m"
 sleep 2
+echo "Checking Termux api"
+termux-toast -b black -c green -g top "Termux-api is working" && print green "Termux api is working"|| print red "Termux-api is not working"
 
 # Install required packages
 print blue "Installing ffmpeg, jq, libexpat, and openssl"
@@ -37,7 +39,7 @@ pkg install jq -y || print red "Could not install jq"
 pkg install libexpat -y || print red "Could not install libexpat"
 pkg install openssl -y || print red "Could not install openssl"
 
-# Install Python and yt-dlp
+# Install Python,Yt-dlp and Aria2c
 print blue "Installing Python"
 pkg install python -y || print red "Could not install Python"
 print blue "Installing aria2"
@@ -49,7 +51,6 @@ clear
 
 # Create bin directory if it doesn't exist
 mkdir -p $HOME/bin || print red "Could not create bin directory"
-
 # Download and set executable permissions for scripts
 print blue "Downloading and setting permissions for scripts"
 curl -o $HOME/bin/YTQuickDL.sh https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/YTQuickDL.sh && chmod +x $HOME/bin/YTQuickDL.sh || print red "Failed to download YTQuickDL.sh"
