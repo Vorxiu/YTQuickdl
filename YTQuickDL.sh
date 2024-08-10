@@ -1,6 +1,3 @@
-
-#-----Fallback Format-------
-
 #Function to handle termux dialog and bash fallback
 show_dialog() {
     local title="$1"
@@ -33,6 +30,7 @@ show_dialog() {
         fi
     done
 }
+
 # Function to print colored output
 print() {
     local color=$1
@@ -49,11 +47,11 @@ print() {
 error_check() {
 	termux-toast -g top  -b red -c black "unexpected error ಠ⁠ ⁠ل͟⁠ ⁠ಠ"|| print red "Something went wrong" 
 	termux-wake-unlock || echo "error occured"
+
 }
-trap error_check ERR
+#trap error_check ERR
 
 #>---------------------[Main Script]---------------------------<
-
 # Get the shared URL
 URL="$1"
 termux-wake-lock || echo "couldn't get wake lock,continuing"
@@ -62,7 +60,6 @@ print green "Starting..."
 #----{Quality & Download type}-----
 TYPE_RESPONSE=$(show_dialog "Download As" "Video,Audio,QuickDownload,Music") #Ask User for Download type
 TYPE=$(echo $TYPE_RESPONSE | jq -r .text)
-
 #----{Quality Selection}------
 echo "Quality selection"
 if [ "$TYPE" = "Video" ]; then
@@ -100,29 +97,30 @@ esac
 
  elif [ "$TYPE" = "QuickDownload" ]; then
 	QuickDownload
-
   else #Music Options
-  FORMAT="bestaudio[ext=flac]/bestaudio[ext=m4a]/bestaudio[ext=mp3]/bestaudio"
-  recode="--recode-video flac"
+  FORMAT="bestaudio[ext=flac]/bestaudio[ext=m4a]/bestaudio[ext=mp3]/bestaudio/best"
+  recode="flac"
   format="bestaudio/best"
   sub="--no-write-sub"
   metadata=""
   download_dir="$download_dir/Music"
   fi
+
+  recode="--recode-video $recode"
   echo "Quality selection complete $QUALITY Using directory $download_dir"
   mkdir -p "$download_dir"
-#-------------------------------------
-echo "$Quality Final variables $download_dir $metadata $FORMAT $recode  $PLAYLIST  $URL"
+  echo -e "\033[4;34m>---[Final Variables]---<\033[0m \nQuality:$Quality \nDownload directory:$download_dir \nMetadata:$metadata \nFormat:$FORMAT \nRecoding format:$recode \n$PLAYLIST \nURL:$URL"
 
 #-----{download started message}-------
-termux-toast -s  -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
-echo "Download will continue in background"
+termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
+echo -e "\033[4;34mDownload will continue in background\033[0m"
+
 #--------[Main Yt-dl Command]-----------
-yt-dlp $sub  $metadata -f "$FORMAT" --recode-video $recode $downloader -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
+yt-dlp $sub  $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt" || \
 { termux-toast -g top -b amber -c black "Something went wrong with yt-dlp";
   pip install --upgrade yt-dlp  && \
-  yt-dlp -f "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
+  yt-dlp -f $sub $metadta "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
 
 echo "Downloaded into $download_dir"
 termux-wake-unlock

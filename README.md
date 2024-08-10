@@ -11,8 +11,7 @@
 - curl
 
 Note : if termux-api is not working properly the script will fallback to bash
-# Installation 
-
+# Installation
 ```bash
 curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && chmod +x installer.sh && ./installer.sh
 ```
@@ -20,8 +19,7 @@ The installer will automatically install and configure the script.
 if you don't want the UI you can uninstall termux-api
 
 # Updates
-
--initial aria2c support
+- Now uses Aria2 as the default downloader which is much faster compared to the default downloader
 
 # Todo
 - Spotify support

@@ -165,7 +165,8 @@ else
 fi
 echo -e "\e[32m metadata:$metadata\e[0m"
 
-# Create the output script with the function definition
+#---------{Writing conifgs}------------
+
 cat > temp.sh << EOF
 #!/data/data/com.termux/files/usr/bin/bash
 
@@ -181,7 +182,6 @@ audiorecode="$Audioformat"
 sub="$sub"
 metadata="$metadata $thumbnail $sponsorblock"
 download_dir="/sdcard$refdl_dir"
-downloader="$(download_manager)"
 
 EOF
 
