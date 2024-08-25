@@ -92,6 +92,23 @@ download_manager() {
 # --------------------[Main script]-------------------
 echo "YT-DLP Options Configuration Script"
 
+  if prompt_confirm "Use recommended options"; then
+
+  format_string="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720][ext=mp4]/best"
+  format="mp4"
+  Qdir="/sdcard/Download/YTQuickdl"
+
+  Videoformat="mp4"
+  Audioformat="best"
+  sub="--write-subs --sub-langs en"
+  sponsorblock="--sponsorblock-remove all"
+  refdl_dir="/Download/YTQuickdl"
+  chp="--embed-chapters"
+  metadata=""
+  thumbnail=""
+
+  else
+
 # Audio options
 Audioformat=$(prompt_radio "Choose preferred audio extension" "best,aac,flac,mp3,m4a,opus,vorbis,wav")
 echo -e "\e[32mAudio format set to $Audioformat\e[0m"
@@ -147,6 +164,7 @@ if prompt_confirm "Do you want to mark chapters?"; then
 else
   chp=""
 fi
+echo -e "\e[32mchapter embeding:$chp\e[0m"
 
 # Thumbnail embedding
 if prompt_confirm "Do you want to embed thumbnails?"; then
@@ -172,6 +190,7 @@ else
 fi
 echo -e "\e[32m metadata:$metadata\e[0m"
 
+  fi
 
 #---------{Writing conifgs}------------
 
@@ -188,9 +207,8 @@ QuickDownload() {
 recode="$Videoformat"
 audiorecode="$Audioformat"
 sub="$sub"
-metadata="$metadata $thumbnail $sponsorblock"
+metadata="$chp $metadata $thumbnail $sponsorblock"
 download_dir="/sdcard$refdl_dir"
-chp=$chp
 
 EOF
 

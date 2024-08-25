@@ -119,18 +119,18 @@ esac
   recode="--recode-video $recode"
   echo "Quality selection complete $QUALITY Using directory $download_dir"
   mkdir -p "$download_dir"
-  echo -e "\033[4;34m>   [Final Variables] \033[0m \nQuality:$QUALITY \nDownload directory:$download_dir \nMetadata:$metadata \nFormat:$FORMAT \nRecoding format:$recode \n$PLAYLIST \nURL:$URL"
+  echo -e "\033[4;34m>   [Final Variables] \033[0m \nQuality:$QUALITY \nDownload directory:$download_dir\nChapterOptions:$chp \nMetadata:$metadata \nFormat:$FORMAT \nRecoding format:$recode \n$PLAYLIST \nURL:$URL"
 
 #-----{download started message}-------
 termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
 echo -e "\033[4;34mDownload will continue in background\033[0m"
 
 #--------[Main Yt-dl Command]-----------
-yt-dlp $sub  $metadata $chp -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
+yt-dlp $sub  $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt" || \
 { termux-toast -g top -b amber -c black "Something went wrong with yt-dlp";
   pip install --upgrade yt-dlp  && \
-  yt-dlp -f $sub $metadta $chp "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
+  yt-dlp -f $sub $metadta "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
 
 termux-toast -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
 termux-wake-unlock
