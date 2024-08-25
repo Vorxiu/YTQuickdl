@@ -39,17 +39,27 @@ print() {
         red) echo -e "\033[0;31m$text\033[0m" ;;
         green) echo -e "\033[0;32m$text\033[0m" ;;
         yellow) echo -e "\033[0;33m$text\033[0m" ;;
-        *) echo "$text" ;;
+        *) echo -e "$text" ;;
     esac
+}
+
+# Function in case of error
+ytdl_er() {
+  termux-toast -g top -b amber -c black "Something went wrong with yt-dlp"
+  echo "Something went wrong with (missing formarts?) yt-dlp redownloading"
+  pip install --upgrade yt-dlp
+  pkg up aria2 -y
+  yt-dlp -f $sub $metadta "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && termux-toast -g bottom -b black -c yellow "Download competed with some errors"
 }
 
 # Function in case a error occurs
 error_check() {
-	termux-toast -g top  -b red -c black "unexpected error ಠ⁠ ⁠ل͟⁠ ⁠ಠ"|| print red "Something went wrong" 
+	termux-toast -g top  -b red -c black "unexpected error ಠ⁠ ⁠ل͟⁠ ⁠ಠ"|| print red "Something went wrong"
 	termux-wake-unlock || echo "error occured"
-
+	exit 1
 }
-#trap error_check ERR
+
+trap error_check ERR
 
 #>---------------------[Main Script]---------------------------<
 # Get the shared URL
@@ -109,7 +119,7 @@ esac
   recode="--recode-video $recode"
   echo "Quality selection complete $QUALITY Using directory $download_dir"
   mkdir -p "$download_dir"
-  echo -e "\033[4;34m>---[Final Variables]---<\033[0m \nQuality:$Quality \nDownload directory:$download_dir \nMetadata:$metadata \nFormat:$FORMAT \nRecoding format:$recode \n$PLAYLIST \nURL:$URL"
+  echo -e "\033[4;34m>   [Final Variables] \033[0m \nQuality:$QUALITY \nDownload directory:$download_dir \nMetadata:$metadata \nFormat:$FORMAT \nRecoding format:$recode \n$PLAYLIST \nURL:$URL"
 
 #-----{download started message}-------
 termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
@@ -122,5 +132,5 @@ termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt
   pip install --upgrade yt-dlp  && \
   yt-dlp -f $sub $metadta "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
 
-echo "Downloaded into $download_dir"
+termux-toast -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
 termux-wake-unlock
