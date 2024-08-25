@@ -93,21 +93,23 @@ download_manager() {
 echo "YT-DLP Options Configuration Script"
 
   if prompt_confirm "Use recommended options"; then
-
+# Options for Quick download function
   format_string="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720][ext=mp4]/best"
   format="mp4"
   Qdir="/sdcard/Download/YTQuickdl"
-
+# default options
   Videoformat="mp4"
-  Audioformat="best"
+  Audioformat="mp3"
   sub="--write-subs --sub-langs en"
   sponsorblock="--sponsorblock-remove all"
   refdl_dir="/Download/YTQuickdl"
   chp="--embed-chapters"
-  metadata=""
+  metadata="--embed-metadata"
   thumbnail=""
 
-  else
+  echo -e "# Options for Quick download function\n$format_string\n$format\n$Qdir\n# default options\n$Videoformat\n$Audioformat\n$sub\n$sponsorblock\n$refdl_dir\n$chp\n$metadata\n$thumbnail"
+  sleep 3
+else
 
 # Audio options
 Audioformat=$(prompt_radio "Choose preferred audio extension" "best,aac,flac,mp3,m4a,opus,vorbis,wav")
@@ -189,7 +191,6 @@ else
   metadata=""
 fi
 echo -e "\e[32m metadata:$metadata\e[0m"
-
   fi
 
 #---------{Writing conifgs}------------
