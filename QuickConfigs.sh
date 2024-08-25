@@ -141,6 +141,13 @@ subtitle_options=$(select_subtitles)
 sub="$subtitle_options"
 echo -e "\e[32mSubtitle options: $sub\e[0m"
 
+# Chapter marks
+if prompt_confirm "Do you want to mark chapters?"; then
+  chp="--embed-chapters"
+else
+  chp=""
+fi
+
 # Thumbnail embedding
 if prompt_confirm "Do you want to embed thumbnails?"; then
   thumbnail="--embed-thumbnail"
@@ -165,6 +172,7 @@ else
 fi
 echo -e "\e[32m metadata:$metadata\e[0m"
 
+
 #---------{Writing conifgs}------------
 
 cat > temp.sh << EOF
@@ -182,6 +190,7 @@ audiorecode="$Audioformat"
 sub="$sub"
 metadata="$metadata $thumbnail $sponsorblock"
 download_dir="/sdcard$refdl_dir"
+chp=$chp
 
 EOF
 
