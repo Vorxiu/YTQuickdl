@@ -94,15 +94,24 @@ echo "YT-DLP Options Configuration Script"
 
   if prompt_confirm "Use recommended options"; then
 # Options for Quick download function
-  format_string="bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720][ext=mp4]/best"
   format="mp4"
-  Qdir="/sdcard/Download/YTQuickdl"
+  refdl_dir="/Download/YTQuickdl"
+#Video Options for Quick download
+  resolution=$(prompt_radio "Choose preferred video resolution" "best,1440p,1080p,720p,480p,360p,240p,144p")
+  echo -e "\e[32mVideo extension for Quick Download set to $format & $resolution \e[0m"
+  Qdir="$refdl_dir"
+  # Construct the format string for video
+  if [ "$resolution" = "best" ]; then
+    format_string="bestvideo[ext=$format]+bestaudio[ext=m4a]/best[ext=$format]/best"
+  else
+    format_string="bestvideo[height<=${resolution%%p*}][ext=$format]+bestaudio[ext=m4a]/best[height<=${resolution%%p*}][ext=$format]/best"
+  fi
+
 # default options
   Videoformat="mp4"
   Audioformat="mp3"
   sub="--write-subs --sub-langs en"
   sponsorblock="--sponsorblock-remove all"
-  refdl_dir="/Download/YTQuickdl"
   chp="--embed-chapters"
   metadata="--embed-metadata"
   thumbnail=""
