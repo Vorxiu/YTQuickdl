@@ -97,7 +97,7 @@ echo "YT-DLP Options Configuration Script"
   format="mp4"
   refdl_dir="/Download/YTQuickdl"
 #Video Options for Quick download
-  resolution=$(prompt_radio "Choose preferred video resolution" "best,1440p,1080p,720p,480p,360p,240p,144p")
+  resolution=$(prompt_radio "Preffered Video resolution for Quick download" "best,1440p,1080p,720p,480p,360p,240p,144p")
   echo -e "\e[32mVideo extension for Quick Download set to $format & $resolution \e[0m"
   Qdir="$refdl_dir"
   # Construct the format string for video
