@@ -3,7 +3,7 @@
 - Easy installation
 - setupMultiple configurations for different use cases easily 
 - Many more
-
+- Now correctly downloads a playlist into a folder named after the playlist
 # Prerequisites
 
 - Termux for Android 
