@@ -102,7 +102,7 @@ elif [ "$TYPE" = "Audio" ]; then
 	 "High") FORMAT="bestaudio[abr>=192]/best" ;;
          "medium") FORMAT="bestaudio[abr>=128]/best" ;;
          "low") FORMAT="bestaudio[abr<128]/best" ;;
-	"lowest")FORMAT="worstaudio/worst" format="worstaudio/worst";;;
+	"lowest")FORMAT="worstaudio/worst" format="worstaudio/worst";;
      esac
 
  elif [ "$TYPE" = "QuickDownload" ]; then
@@ -127,12 +127,28 @@ if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     download_dir="download_dir/$playlist_title"
 fi
   mkdir -p "$download_dir" #Creating the Directory
+
+#Final variable values usrful for debuging
+
+echo -e "\n\033[1;34m╔══════════════════════════════════════════════╗\033[0m"
+echo -e "\033[1;34m║            \033[4;36mFinal Variables\033[0m \033[1;34m                  ║\033[0m"
+echo -e "\033[1;34m╚══════════════════════════════════════════════╝\033[0m"
+echo -e "\033[1;33m• \033[1;32mQuality:           \033[0m\033[0;92m$QUALITY\033[0m"
+echo -e "\033[1;33m• \033[1;32mDownload directory:\033[0m \033[0;92m$download_dir\033[0m"
+echo -e "\033[1;33m• \033[1;32mChapter Options:   \033[0m\033[0;92m$chp\033[0m"
+echo -e "\033[1;33m• \033[1;32mMetadata:          \033[0m\033[0;92m$metadata\033[0m"
+echo -e "\033[1;33m• \033[1;32mFormat:            \033[0m\033[0;92m$FORMAT\033[0m"
+echo -e "\033[1;33m• \033[1;32mRecoding format:   \033[0m\033[0;92m$recode\033[0m"
+echo -e "\033[1;33m• \033[1;32mPlaylist:          \033[0m\033[0;92m$PLAYLIST\033[0m"
+echo -e "\033[1;33m• \033[1;32mURL:               \033[0m\033[0;92m$URL\033[0m"
+echo -e ""
+
   echo -e "\033[4;34m>   [Final Variables] \033[0m \nQuality:$QUALITY \nDownload directory:$download_dir\nChapterOptions:$chp \nMetadata:$metadata \nFormat:$FORMAT \nRecoding format:$recode \n$PLAYLIST \nURL:$URL"
   recode="--recode-video $recode"
 
 #-----{download started message}-------
 termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
-
+print green "Downloading"
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY" || \
@@ -142,3 +158,4 @@ termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY" || \
 print green "download complete"
 termux-toast -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
 termux-wake-unlock
+
