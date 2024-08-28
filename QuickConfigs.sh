@@ -92,33 +92,22 @@ download_manager() {
 # --------------------[Main script]-------------------
 echo "YT-DLP Options Configuration Script"
 
-  if prompt_confirm "Use recommended options"; then
-# Options for Quick download function
-  format="mp4"
+# Options used when recomended settings are selected for Quick download function
+  format="mp4" #format for Quick download
   refdl_dir="/Download/YTQuickdl"
-#Video Options for Quick download
-  resolution=$(prompt_radio "Preffered Video resolution for Quick download" "best,1440p,1080p,720p,480p,360p,240p,144p")
-  echo -e "\e[32mVideo extension for Quick Download set to $format & $resolution \e[0m"
-  Qdir="$refdl_dir"
-  # Construct the format string for video
-  if [ "$resolution" = "best" ]; then
-    format_string="bestvideo[ext=$format]+bestaudio[ext=m4a]/best[ext=$format]/best"
-  else
-    format_string="bestvideo[height<=${resolution%%p*}][ext=$format]+bestaudio[ext=m4a]/best[height<=${resolution%%p*}][ext=$format]/best"
-  fi
-
+  Qdir="$refdl_dir" #Download directory for Quick download
+  format_string="bestvideo[height<=720]+bestaudio/best"
 # default options
   Videoformat="mp4"
   Audioformat="mp3"
   sub="--write-subs --sub-langs en"
-  sponsorblock="--sponsorblock-remove all"
+  sponsorblock=""
   chp="--embed-chapters"
   metadata="--embed-metadata"
   thumbnail=""
 
-  echo -e "# Options for Quick download function\n$format_string\n$format\n$Qdir\n# default options\n$Videoformat\n$Audioformat\n$sub\n$sponsorblock\n$refdl_dir\n$chp\n$metadata\n$thumbnail"
-  sleep 3
-else
+
+  if prompt_confirm "Manually configure yt-dlp"; then
 
 # Audio options
 Audioformat=$(prompt_radio "Choose preferred audio extension" "best,aac,flac,mp3,m4a,opus,vorbis,wav")
@@ -200,6 +189,21 @@ else
   metadata=""
 fi
 echo -e "\e[32m metadata:$metadata\e[0m"
+
+else #when using recommended Options
+
+  #Video Options for Quick download
+  resolution=$(prompt_radio "Preffered Video resolution for Quick download" "best,1440p,1080p,720p,480p,360p,240p,144p")
+  echo -e "\e[32mVideo extension for Quick Download set to $format & $resolution \e[0m"
+  # Construct the format string for video
+  if [ "$resolution" = "best" ];  then
+    format_string="bestvideo[ext=$format]+bestaudio[ext=m4a]/best[ext=$format]/best"
+  else
+    format_string="bestvideo[height<=${resolution%%p*}][ext=$format]+bestaudio[ext=m4a]/best[height<=${resolution%%p*}][ext=$format]/best"
+ fi
+
+  echo -e "# Options for Quick download function\n$format_string\n$format\n$Qdir\n# default options\n$Videoformat\n$Audioformat\n$sub\n$sponsorblock\n$refdl_dir\n$chp\n$metadata\n$thumbnail"
+
   fi
 
 #---------{Writing conifgs}------------

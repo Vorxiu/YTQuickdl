@@ -105,15 +105,17 @@ elif [ "$TYPE" = "Audio" ]; then
 	"lowest")FORMAT="worstaudio/worst" format="worstaudio/worst";;
      esac
 
- elif [ "$TYPE" = "QuickDownload" ]; then
-	QuickDownload
-  else #Music Options
+ elif [ "$TYPE" = "Music" ]; then
+  #Music Options
   FORMAT="bestaudio[ext=flac]/bestaudio[ext=m4a]/bestaudio[ext=mp3]/bestaudio/best"
   recode="flac"
   format="bestaudio/best"
   sub="--no-write-sub"
   metadata=""
   download_dir="$download_dir/Music"
+
+else
+ QuickDownload #calls the Quick download Function
   fi
 
 echo -e "\033[4;34mDownload will continue in background\033[0m"
