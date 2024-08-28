@@ -98,7 +98,7 @@ elif [ "$TYPE" = "Audio" ]; then
 	recode="$Audiorecode"
 	#set yt-dlp based on user choice
      case $QUALITY in
-	 "Best") FORMAT="bestaudio/best[ext=flac]/best" && recode="--recode-video flac";;
+	 "Best") FORMAT="bestaudio/best[ext=flac]/best" && recode="flac";;
 	 "High") FORMAT="bestaudio[abr>=192]/best" ;;
          "medium") FORMAT="bestaudio[abr>=128]/best" ;;
          "low") FORMAT="bestaudio[abr<128]/best" ;;
