@@ -53,6 +53,14 @@ ytdl_er() {
 
 }
 
+comp() {
+termux-toast -s -g bottom -b black -c green "$TYPE download complete $QUALITY"
+termux-notification -t "Download Complete $video_title $TYPE"
+print green "download complete"
+termux-toast -s -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
+
+}
+
 # Function in case a error occurs
 error_check() {
 	termux-toast -g top  -b red -c black "unexpected error ಠ⁠ ⁠ل͟⁠ ⁠ಠ"|| print red "Something went wrong"
@@ -119,22 +127,19 @@ elif [ "$TYPE" = "Audio" ]; then
 else
  QuickDownload #calls the Quick download Function
   fi
-
 echo -e "\033[4;34mDownload will continue in background\033[0m"
 echo "Fetching configs data"
 
 # Playlist check
-titles=$(yt-dlp --flat-playlist --print "%(title)s\n%(playlist_title)s" "$URL" 2>/dev/null | head -n 1)
-playlist_title=$(echo "$metadata" | sed -n '2p')
-video_title=$(echo "$metadata" | sed -n '1p')
-
+playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null | head -n 1)
+#playlist_title=$(echo "$title" | sed -n '2p')
+#video_title=$(echo "$title" | sed -n '1p')
 
 # Checks if a title was and the title isn't NA
 if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     # Setting the directory
-    download_dir="download_dir/$playlist_title"
+    download_dir="$download_dir/$playlist_title"
 fi
-
 if [ ! -d "$download_dir" ]; then
   mkdir -p "$download_dir" #Creating the Directory
 fi
@@ -160,14 +165,6 @@ termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$T
 print green "Downloading"
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
-y = "1" || \ { ytdl_er; }
-
-if [ "$y" = "1" ]; then
-termux-toast -s -g bottom -b black -c green "$TYPE download complete $QUALITY"
-termux-notification -t "Download Complete $video_title"
-print green "download complete"
-termux-toast -s -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
-fi
-
+comp || \
+{ ytdl_er; }
 termux-wake-unlock
-
