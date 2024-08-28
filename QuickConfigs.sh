@@ -91,7 +91,7 @@ download_manager() {
 
 # --------------------[Main script]-------------------
 echo "YT-DLP Options Configuration Script"
-
+termux-wake-lock
 # Options used when recomended settings are selected for Quick download function
   format="mp4" #format for Quick download
   refdl_dir="/Download/YTQuickdl"
@@ -205,7 +205,7 @@ else #when using recommended Options
   echo -e "# Options for Quick download function\n$format_string\n$format\n$Qdir\n# default options\n$Videoformat\n$Audioformat\n$sub\n$sponsorblock\n$refdl_dir\n$chp\n$metadata\n$thumbnail"
 
   fi
-
+termux-wake-unlock
 #---------{Writing conifgs}------------
 
 cat > temp.sh << EOF
@@ -226,12 +226,31 @@ download_dir="/sdcard$refdl_dir"
 
 EOF
 
+
+
+
+    echo -e "\033[1;33m• \033[1;36mFORMAT:            \033[0m$FORMAT"
+    echo -e "\033[1;33m• \033[1;36mRecoding format:   \033[0m$recode"
+    echo -e "\033[1;33m• \033[1;36mDownload directory:\033[0m $download_dir"
+    echo -e ""
+}
+
+
+echo -e "[1;36m Default Options \033"
+
+echo -e "\033[1;33m• \033[1;36mRecoding format:    \033[0m$recode"
+echo -e "\033[1;33m• \033[1;36mAudio recode:       \033[0m$audiorecode"
+echo -e "\033[1;33m• \033[1;36mSubtitle options:   \033[0m$sub"
+echo -e "\033[1;33m• \033[1;36mMetadata:           \033[0m$metadata"
+echo -e "\033[1;33m• \033[1;36mDownload directory: \033[0m$download_dir"
+echo -e ""
+
+
 # Append the existing script to the temporary file
 cat "$HOME/bin/YTQuickDL.sh" >> temp.sh
 # Replace the original script with the temporary file
 mv temp.sh "$HOME/bin/YTQuickDL.sh"
 chmod +x "$HOME/bin/YTQuickDL.sh"
 
-echo "$download_dir"
 echo -e "\e[32mYTQuickDL configured\e[0m"
 echo -e "\e[32mNow you can share a video link to termux and it will download it using yt-dlp\e[0m"

@@ -59,6 +59,7 @@ error_check() {
 	exit 1
 }
 
+
 trap error_check ERR
 #>---------------------[Main Script]---------------------------<
 # Get the shared URL
@@ -120,20 +121,27 @@ else
 
 echo -e "\033[4;34mDownload will continue in background\033[0m"
 
+
+echo "Fetching Playlist title"
 # Playlist check
 playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null | head -n 1)
 
-# Checks if a title waa and the title isn't NA
+
+
+# Checks if a title was and the title isn't NA
 if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
-    # Creating the directory
+    # Setting the directory
     download_dir="download_dir/$playlist_title"
 fi
-  mkdir -p "$download_dir" #Creating the Directory
 
-#Final variable values usrful for debuging
+if [ ! -d "$download_dir" ]; then
+  mkdir -p "$download_dir" #Creating the Directory
+fi
+
+#Final variable values useful for debuging
 
 echo -e "\n\033[1;34m╔══════════════════════════════════════════════╗\033[0m"
-echo -e "\033[1;34m║            \033[4;36mFinal Variables\033[0m \033[1;34m                  ║\033[0m"
+echo -e "\033[1;34m║            \033[4;35mFinal Variables\033[0m \033[1;34m                  ║\033[0m"
 echo -e "\033[1;34m╚══════════════════════════════════════════════╝\033[0m"
 echo -e "\033[1;33m• \033[1;32mQuality:           \033[0m\033[0;92m$QUALITY\033[0m"
 echo -e "\033[1;33m• \033[1;32mDownload directory:\033[0m \033[0;92m$download_dir\033[0m"
@@ -141,12 +149,9 @@ echo -e "\033[1;33m• \033[1;32mChapter Options:   \033[0m\033[0;92m$chp\033[0m
 echo -e "\033[1;33m• \033[1;32mMetadata:          \033[0m\033[0;92m$metadata\033[0m"
 echo -e "\033[1;33m• \033[1;32mFormat:            \033[0m\033[0;92m$FORMAT\033[0m"
 echo -e "\033[1;33m• \033[1;32mRecoding format:   \033[0m\033[0;92m$recode\033[0m"
-echo -e "\033[1;33m• \033[1;32mPlaylist:          \033[0m\033[0;92m$PLAYLIST\033[0m"
+echo -e "\033[1;33m• \033[1;32mPlaylist Title:    \033[0m\033[0;92m$playlist_title\033[0m"
 echo -e "\033[1;33m• \033[1;32mURL:               \033[0m\033[0;92m$URL\033[0m"
 echo -e ""
-
-  echo -e "\033[4;34m>   [Final Variables] \033[0m \nQuality:$QUALITY \nDownload directory:$download_dir\nChapterOptions:$chp \nMetadata:$metadata \nFormat:$FORMAT \nRecoding format:$recode \n$PLAYLIST \nURL:$URL"
-  recode="--recode-video $recode"
 
 #-----{download started message}-------
 termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
@@ -154,7 +159,7 @@ print green "Downloading"
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY" || \
-{ ytdl_er }
+{ ytdl_er; }
 
 print green "download complete"
 

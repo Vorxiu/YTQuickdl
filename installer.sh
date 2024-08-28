@@ -24,7 +24,6 @@ else
 fi
 }
 
-termux-wake-lock
 clear
 echo "Starting..."
 # Request storage permission
@@ -53,7 +52,11 @@ do
 done
 
 # Create bin directory if it doesn't exist
+
+if [ ! -d "$HOME/bin" ]; then
 mkdir -p $HOME/bin || print red "Could not create bin directory"
+fi
+
 # Download and set executable permissions for scripts
 print blue "Downloading and setting permissions for scripts"
 curl -o $HOME/bin/YTQuickDL.sh https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/YTQuickDL.sh && chmod +x $HOME/bin/YTQuickDL.sh || print red "Failed to download YTQuickDL.sh"
@@ -63,7 +66,6 @@ print green "installation complete"
 
 #clearing cache
 pkg autoclean
-termux-wake-unlock || print red "couldn't free wake lock"
 clear
 print green "Starting config script required"
 echo "======================================================="
