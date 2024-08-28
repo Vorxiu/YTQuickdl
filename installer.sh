@@ -12,16 +12,28 @@ print() {
         *) echo "$text" ;;
     esac
 }
+# function for checking if a package is working if it isn't installed an attempt is made to install it
+check() {
+if ! command -v "$1" &> /dev/null
+then
+#installing the command
+echo -e "\033[0;36mInstalling $1\033[0m"
+pkg install "$1" -y && echo -e "\033[0;32mInstalled $1 \033[0m" || echo -e "\e[31mCould not install $1 \e[0m"
+else
+   echo -e "\033[0;36m •$1 is working \033[0m"
+fi
+}
+
 termux-wake-lock
 clear
 echo "Starting..."
 # Request storage permission
 print blue "Allow storage permission"
 termux-setup-storage || print red "Couldn't get storage permissions"
-sleep 2
+
 # Update packages
 print blue "Updating packages"
-pkg update -y && pkg upgrade -y 
+pkg update -y && pkg upgrade -y
 
 # Install termux-api
 print yellow "Installing termux-api"
@@ -32,22 +44,13 @@ sleep 2
 echo "Checking Termux api"
 termux-toast -b black -c green -g top "Termux-api is working" && print green "Termux api is working"|| print red "Termux-api is not working"
 
-# Install required packages
-print blue "Installing ffmpeg, jq, libexpat, and openssl"
-pkg install ffmpeg -y || print red "Could not install ffmpeg"
-pkg install jq -y || print red "Could not install jq"
-pkg install libexpat -y || print red "Could not install libexpat"
-pkg install openssl -y || print red "Could not install openssl"
-
-# Install Python,Yt-dlp and Aria2c
-print blue "Installing Python"
-pkg install python -y || print red "Could not install Python"
-print blue "Installing aria2"
-pkg install aria2 -y || print red "Unable to insall aria2"
-print blue "Installating yt-dlp "
-pip install yt-dlp || print red "Could not install yt-dlp"
-sleep 2
-clear
+# List of commands to check
+commands=("ffmpeg" "jq" "libexpat" "openssl" "python" "aria2" "yt-dlp")
+# Loop through each command in the list and check it
+for cmd in "${commands[@]}"
+do
+    check "$cmd"
+done
 
 # Create bin directory if it doesn't exist
 mkdir -p $HOME/bin || print red "Could not create bin directory"
@@ -59,11 +62,9 @@ curl -o $HOME/bin/termux-url-opener https://raw.githubusercontent.com/Vorxiu/YTQ
 print green "installation complete"
 
 #clearing cache
-print blue "Freeing up space"
-pkg autoclean || print red "couldn't clear apt cache"
-termux-wake-unlock || print "couldn't free wake lock"
+pkg autoclean
+termux-wake-unlock || print red "couldn't free wake lock"
 clear
-
 print green "Starting config script required"
 echo "======================================================="
 bash $HOME/bin/QuickConfigs.sh || print red "couldn't start config script run it manually by:cd bin && bash QuickConfigs.sh"
