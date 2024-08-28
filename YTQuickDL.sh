@@ -49,7 +49,8 @@ ytdl_er() {
   echo "Something went wrong with (missing formarts?) yt-dlp redownloading"
   pip install --upgrade yt-dlp
   pkg up aria2 -y
-  yt-dlp -f $sub $metadta "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && termux-toast -g bottom -b black -c yellow "Download competed with some errors"
+  yt-dlp -f "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && termux-toast -g bottom -b black -c yellow "Download competed with some errors"
+
 }
 
 # Function in case a error occurs
@@ -66,7 +67,7 @@ trap error_check ERR
 URL="$1"
 termux-wake-lock || echo "couldn't get wake lock,continuing"
 print green "Starting..."
-
+TYPE="QuickDownload"
 #----{Quality & Download type}-----
 TYPE_RESPONSE=$(show_dialog "Download As" "Video,Audio,QuickDownload,Music") #Ask User for Download type
 TYPE=$(echo $TYPE_RESPONSE | jq -r .text)
@@ -120,12 +121,12 @@ else
   fi
 
 echo -e "\033[4;34mDownload will continue in background\033[0m"
+echo "Fetching configs data"
 
-
-echo "Fetching Playlist title"
 # Playlist check
-playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null | head -n 1)
-
+titles=$(yt-dlp --flat-playlist --print "%(title)s\n%(playlist_title)s" "$URL" 2>/dev/null | head -n 1)
+playlist_title=$(echo "$metadata" | sed -n '2p')
+video_title=$(echo "$metadata" | sed -n '1p')
 
 
 # Checks if a title was and the title isn't NA
@@ -137,15 +138,16 @@ fi
 if [ ! -d "$download_dir" ]; then
   mkdir -p "$download_dir" #Creating the Directory
 fi
-
+recode="--recode-video $recode"
 #Final variable values useful for debuging
-
+clear
 echo -e "\n\033[1;34m╔══════════════════════════════════════════════╗\033[0m"
 echo -e "\033[1;34m║            \033[4;35mFinal Variables\033[0m \033[1;34m                  ║\033[0m"
 echo -e "\033[1;34m╚══════════════════════════════════════════════╝\033[0m"
+echo -e "\033[1;33m• \033[1;32mVideo title:       \033[0m\033[0;92m$video_title\033[0m"
 echo -e "\033[1;33m• \033[1;32mQuality:           \033[0m\033[0;92m$QUALITY\033[0m"
 echo -e "\033[1;33m• \033[1;32mDownload directory:\033[0m \033[0;92m$download_dir\033[0m"
-echo -e "\033[1;33m• \033[1;32mChapter Options:   \033[0m\033[0;92m$chp\033[0m"
+echo -e "\033[1;33m• \033[1;32mDownload Type:   \033[0m\033[0;92m$TYPE\033[0m"
 echo -e "\033[1;33m• \033[1;32mMetadata:          \033[0m\033[0;92m$metadata\033[0m"
 echo -e "\033[1;33m• \033[1;32mFormat:            \033[0m\033[0;92m$FORMAT\033[0m"
 echo -e "\033[1;33m• \033[1;32mRecoding format:   \033[0m\033[0;92m$recode\033[0m"
@@ -158,11 +160,14 @@ termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$T
 print green "Downloading"
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
-termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY" || \
-{ ytdl_er; }
+y = "1" || \ { ytdl_er; }
 
+if [ "$y" = "1" ]; then
+termux-toast -s -g bottom -b black -c green "$TYPE download complete $QUALITY"
+termux-notification -t "Download Complete $video_title"
 print green "download complete"
+termux-toast -s -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
+fi
 
-termux-toast -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
 termux-wake-unlock
 
