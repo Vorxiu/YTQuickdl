@@ -223,28 +223,7 @@ audiorecode="$Audioformat"
 sub="$sub"
 metadata="$chp $metadata $thumbnail $sponsorblock"
 download_dir="/sdcard$refdl_dir"
-
 EOF
-
-
-
-
-    echo -e "\033[1;33m• \033[1;36mFORMAT:            \033[0m$FORMAT"
-    echo -e "\033[1;33m• \033[1;36mRecoding format:   \033[0m$recode"
-    echo -e "\033[1;33m• \033[1;36mDownload directory:\033[0m $download_dir"
-    echo -e ""
-}
-
-
-echo -e "[1;36m Default Options \033"
-
-echo -e "\033[1;33m• \033[1;36mRecoding format:    \033[0m$recode"
-echo -e "\033[1;33m• \033[1;36mAudio recode:       \033[0m$audiorecode"
-echo -e "\033[1;33m• \033[1;36mSubtitle options:   \033[0m$sub"
-echo -e "\033[1;33m• \033[1;36mMetadata:           \033[0m$metadata"
-echo -e "\033[1;33m• \033[1;36mDownload directory: \033[0m$download_dir"
-echo -e ""
-
 
 # Append the existing script to the temporary file
 cat "$HOME/bin/YTQuickDL.sh" >> temp.sh
