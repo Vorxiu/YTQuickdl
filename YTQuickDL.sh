@@ -43,13 +43,13 @@ print() {
     esac
 }
 
-# Function in case of error
+# Function in case of format error
 ytdl_er() {
   termux-toast -g top -b amber -c black "Something went wrong with yt-dlp"
   echo "Something went wrong with (missing formarts?) yt-dlp redownloading"
   pip install --upgrade yt-dlp
   pkg up aria2 -y
-  yt-dlp -f $sub $metadta "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && termux-toast -g bottom -b black -c yellow "Download competed with some errors"
+  yt-dlp -f $sub $metadta "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && termux-toast -g bottom -b black -c yellow "Download competed with some errors"
 }
 
 # Function in case a error occurs
@@ -60,7 +60,6 @@ error_check() {
 }
 
 trap error_check ERR
-
 #>---------------------[Main Script]---------------------------<
 # Get the shared URL
 URL="$1"
@@ -71,15 +70,16 @@ print green "Starting..."
 TYPE_RESPONSE=$(show_dialog "Download As" "Video,Audio,QuickDownload,Music") #Ask User for Download type
 TYPE=$(echo $TYPE_RESPONSE | jq -r .text)
 #----{Quality Selection}------
-echo "Quality selection"
 if [ "$TYPE" = "Video" ]; then
 	# Ask user for quality
-	QUALITY_RESPONSE=$(show_dialog "Select Video Quality" "Best Quality,144p,240p,360p,480p,720p,1080p")
+	QUALITY_RESPONSE=$(show_dialog "Select Video Quality" "Best,240p,360p,480p,720p,1080p,lowest")
 	QUALITY=$(echo $QUALITY_RESPONSE | jq  -r .text)
 	# Set yt-dlp options based on user choice
-    if [ "$QUALITY" = "Best Quality" ]; then
-         FORMAT="bestvideo[ext=$recode]+bestaudio/best[ext=$recode]"
-	 format="bestvideo+bestaudio/best"
+    if [ "$QUALITY" = "Best" ] || [ "$QUALITY" = "lowest" ]; then
+        case $QUALITY in
+         "Best") FORMAT="bestvideo[ext=$recode]+bestaudio/best[ext=$recode]" && format="bestvideo+bestaudio/best" ;;
+         "lowest") FORMAT="worstvideo+worstaudio/worst" && format="worstvideo+worstaudio/worst";;
+        esac
     else
 	 format="bestvideo[height<=${QUALITY%%p*}]+bestaudio/best[height<=${QUALITY%%p*}]"
 	 FORMAT="bestvideo[height<=${QUALITY%%p*}][ext=$recode]+bestaudio/best[height<=${QUALITY%%p*}]"
@@ -102,8 +102,8 @@ elif [ "$TYPE" = "Audio" ]; then
 	 "High") FORMAT="bestaudio[abr>=192]/best" ;;
          "medium") FORMAT="bestaudio[abr>=128]/best" ;;
          "low") FORMAT="bestaudio[abr<128]/best" ;;
-	"lowest")FORMAT="worstaudio/worst" ;;
-esac
+	"lowest")FORMAT="worstaudio/worst" format="worstaudio/worst";;;
+     esac
 
  elif [ "$TYPE" = "QuickDownload" ]; then
 	QuickDownload
@@ -121,8 +121,8 @@ echo -e "\033[4;34mDownload will continue in background\033[0m"
 # Playlist check
 playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null | head -n 1)
 
-# Check if a playlist title was found
-if [ -n "$playlist_title" ]; then
+# Checks if a title waa and the title isn't NA
+if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     # Creating the directory
     download_dir="download_dir/$playlist_title"
 fi
@@ -135,10 +135,10 @@ termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$T
 
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
-termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY $plyt" || \
+termux-toast -g bottom -b black -c green "$TYPE download complete $QUALITY" || \
 { termux-toast -g top -b amber -c black "Something went wrong with yt-dlp";
   pip install --upgrade yt-dlp  && \
-  yt-dlp -f $sub $metadta "$format" --recode-video $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
-
+  yt-dlp -f $sub $metadta "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL"; }
+print green "download complete"
 termux-toast -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
 termux-wake-unlock
