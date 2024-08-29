@@ -68,6 +68,8 @@ print green "installation complete"
 #clearing cache
 pkg autoclean
 clear
+print "    Press any key to continue   "
+read response
 print green "Starting config script required"
 echo "======================================================="
 bash $HOME/bin/QuickConfigs.sh || print red "couldn't start config script run it manually by:cd bin && bash QuickConfigs.sh"
