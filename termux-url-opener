@@ -1,2 +1,12 @@
-#!/data/data/com.termux/files/usr/bin/bash
-~/bin/YTQuickDL.sh  "$1"
+SPOTDL="/data/data/com.termux/files/usr/bin/spotdl"
+
+if [[ $1 == *"open.spotify.com"* ]]; then
+    if [[ ! -d $download_dir ]]; then
+        mkdir -p $download_dir
+    fi
+    cd $download_dir
+    $SPOTDL "$1" || echo "Spotdl isn't Installed"
+    termux-notification --title "Spotify download complete"
+else
+    ~/bin/YTQuickDL.sh "$1"
+fi

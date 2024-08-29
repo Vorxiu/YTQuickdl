@@ -206,8 +206,8 @@ else #when using recommended Options
 
   fi
 termux-wake-unlock
-#---------{Writing conifgs}------------
 
+#---------{Writing conifgs}------------
 cat > temp.sh << EOF
 #!/data/data/com.termux/files/usr/bin/bash
 
@@ -231,28 +231,17 @@ cat "$HOME/bin/YTQuickDL.sh" >> temp.sh
 mv temp.sh "$HOME/bin/YTQuickDL.sh"
 chmod +x "$HOME/bin/YTQuickDL.sh"
 
-# configs for termix-url-opener
 
-cat > ~/bin/termux-url-opener << 'EOF'
+# configs for termux-url-opener
+cat > temp2.sh << EOF
 #!/data/data/com.termux/files/usr/bin/bash
 
 download_dir="$refdl_dir/songs"
-
-SPOTDL="/data/data/com.termux/files/usr/bin/spotdl"
-
-if [[ $1 == *"open.spotify.com"* ]]; then
-    if [[ ! -d $download_dir ]]; then
-        mkdir -p $download_dir
-    fi
-    cd $download_dir
-    $SPOTDL "$1" || echo "Spotdl isn't Installed"
-    termux-notification --title "Spotify download complete"
-else
-    ~/bin/YTQuickDL.sh "$1"
-fi
 EOF
 
-chmod +x "$HOME/bin/termix-url-opener"
+cat "$HOME/bin/termux-url-opener" >> temp2.sh
+mv temp2.sh "$HOME/bin/termux-url-opener"
+chmod +x "$HOME/bin/termux-url-opener"
 
 echo -e "\e[32mYTQuickDL configured\e[0m"
 echo -e "\e[32mNow you can share a video link to termux and it will download it using yt-dlp\e[0m"
