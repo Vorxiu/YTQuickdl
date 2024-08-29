@@ -136,12 +136,13 @@ termux-notification -t "Starting Download $TYPE"  --alert-once --icon "get_app" 
 
 # Playlist check and retrieve the video_title
 
-video_title=$(yt-dlp --print "%(video_title)s" "$URL" 2>/dev/null)
+video_title=$(yt-dlp --get-title $URL )
+
 playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null)
 
 #playlist_title=$(echo "$title" | sed -n '2p')
 
-# Checks if a playlist title was found and the title isn't NA
+# Checks if a title was and the title isn't NA
 if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     # Setting the directory
     download_dir="$download_dir/$playlist_title"
