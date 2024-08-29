@@ -130,20 +130,32 @@ else
 echo -e "\033[4;34mDownload will continue in background\033[0m"
 echo "Fetching configs data"
 
-# Playlist check
-playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null | head -n 1)
+
+termux-notification -t "Download started $TYPE"  --alert-once --icon "get_app" --id 1
+
+
+
+
+# Playlist check and retrieve the video_title
+
+video_title=$(yt-dlp --print "%(video_title)s" "$URL" 2>/dev/null)
+playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null)
+
 #playlist_title=$(echo "$title" | sed -n '2p')
-#video_title=$(echo "$title" | sed -n '1p')
 
 # Checks if a title was and the title isn't NA
 if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     # Setting the directory
     download_dir="$download_dir/$playlist_title"
 fi
-if [ ! -d "$download_dir" ]; then
+
+
+   if [ ! -d "$download_dir" ]; then
   mkdir -p "$download_dir" #Creating the Directory
-fi
+   fi
 recode="--recode-video $recode"
+termux-notification -t "Download started $TYPE" --content "$video_title" --icon "get_app" --id 1
+
 #Final variable values useful for debuging
 clear
 echo -e "\n\033[1;34m╔══════════════════════════════════════════════╗\033[0m"
@@ -163,7 +175,7 @@ echo -e ""
 #-----{download started message}-------
 termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
 print green "Downloading"
-termux-notification -t "Download started $TYPE" --content "$video_title" --icon "get_app" --id 1
+
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 comp || \
