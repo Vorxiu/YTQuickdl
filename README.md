@@ -21,5 +21,5 @@ if you don't want the UI you can uninstall termux-api
 - Now uses Aria2 as the default downloader which is much faster compared to the default downloader
 
 # Todo
-- Spotify support
+- ~Spotify support~
 - Cookie support
