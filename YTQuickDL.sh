@@ -57,7 +57,7 @@ comp() {
 termux-toast -s -g bottom -b black -c green "$TYPE download complete $QUALITY"
 termux-notification -t "Download Complete $video_title $TYPE" --icon "done" --id 1
 print green "download complete"
-termux-toast -s -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
+#termux-toast -s -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
 
 }
 
