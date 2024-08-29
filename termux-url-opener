@@ -5,8 +5,10 @@ if [[ $1 == *"open.spotify.com"* ]]; then
         mkdir -p $download_dir
     fi
     cd $download_dir
-    $SPOTDL "$1" || echo "Spotdl isn't Installed"
-    termux-notification --title "Spotify download complete"
+    $SPOTDL "$1" && termux-notification --title "Spotify download complete"
+echo "Press any key to exit..."
+read -n 1 -s
+
 else
     ~/bin/YTQuickDL.sh "$1"
 fi
