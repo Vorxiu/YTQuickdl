@@ -231,5 +231,28 @@ cat "$HOME/bin/YTQuickDL.sh" >> temp.sh
 mv temp.sh "$HOME/bin/YTQuickDL.sh"
 chmod +x "$HOME/bin/YTQuickDL.sh"
 
+# configs for termix-url-opener
+
+cat > ~/bin/termux-url-opener << 'EOF'
+#!/data/data/com.termux/files/usr/bin/bash
+
+download_dir="$refdl_dir/songs"
+
+SPOTDL="/data/data/com.termux/files/usr/bin/spotdl"
+
+if [[ $1 == *"open.spotify.com"* ]]; then
+    if [[ ! -d $download_dir ]]; then
+        mkdir -p $download_dir
+    fi
+    cd $download_dir
+    $SPOTDL "$1" || echo "Spotdl isn't Installed"
+    termux-notification --title "Spotify download complete"
+else
+    ~/bin/YTQuickDL.sh "$1"
+fi
+EOF
+
+chmod +x "$HOME/bin/termix-url-opener"
+
 echo -e "\e[32mYTQuickDL configured\e[0m"
 echo -e "\e[32mNow you can share a video link to termux and it will download it using yt-dlp\e[0m"
