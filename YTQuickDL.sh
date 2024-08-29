@@ -141,7 +141,7 @@ playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/d
 
 #playlist_title=$(echo "$title" | sed -n '2p')
 
-# Checks if a title was and the title isn't NA
+# Checks if a playlist title was found and the title isn't NA
 if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     # Setting the directory
     download_dir="$download_dir/$playlist_title"
