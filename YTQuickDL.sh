@@ -49,7 +49,7 @@ ytdl_er() {
   echo "Something went wrong with (missing formarts?) yt-dlp redownloading"
   pip install --upgrade yt-dlp
   pkg up aria2 -y
-  yt-dlp -f "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && termux-toast -g bottom -b black -c yellow "Download competed with some errors"
+  yt-dlp -f "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && comp
 
 }
 
@@ -131,9 +131,7 @@ echo -e "\033[4;34mDownload will continue in background\033[0m"
 echo "Fetching configs data"
 
 
-termux-notification -t "Download started $TYPE"  --alert-once --icon "get_app" --id 1
-
-
+termux-notification -t "Starting Download $TYPE"  --alert-once --icon "get_app" --id 1
 
 
 # Playlist check and retrieve the video_title
@@ -180,4 +178,5 @@ print green "Downloading"
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 comp || \
 { ytdl_er; }
+
 termux-wake-unlock
