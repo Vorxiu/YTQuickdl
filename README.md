@@ -8,7 +8,6 @@
 
 - Termux for Android 
 - Termux-api from GitHub or Fdroid depending upon your Termux installation
-- curl
 
 Note : if termux-api is not working properly the script will fallback to bash
 # Installation
