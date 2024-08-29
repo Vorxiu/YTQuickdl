@@ -55,7 +55,7 @@ ytdl_er() {
 
 comp() {
 termux-toast -s -g bottom -b black -c green "$TYPE download complete $QUALITY"
-termux-notification -t "Download Complete $video_title $TYPE"
+termux-notification -t "Download Complete $video_title $TYPE" --icon "done" --id 1
 print green "download complete"
 termux-toast -s -g bottom -s -b black -c green "Downloaded into directory $download_dir" || echo "Downloaded into $download_dir"
 
@@ -163,6 +163,7 @@ echo -e ""
 #-----{download started message}-------
 termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
 print green "Downloading"
+termux-notification -t "Download started $TYPE" --content "$video_title" --icon "get_app" --id 1
 #--------[Main Yt-dl Command]-----------
 yt-dlp $sub $metadata -f "$FORMAT" $recode --external-downloader aria2c --external-downloader-args "-x 16 -k 1M" -o "$download_dir/%(title)s.%(ext)s" "$URL" && \
 comp || \
