@@ -1,4 +1,3 @@
----
 
 # Features
 
@@ -34,5 +33,3 @@ The installer will handle the automatic installation and configuration of the sc
 # To Do
 
 - ~Spotdl support~
-
----
