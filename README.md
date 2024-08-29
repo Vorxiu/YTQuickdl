@@ -1,24 +1,38 @@
+---
+
 # Features
-- Simple GUI for yt-dlp 
-- Easy installation
-- setupMultiple configurations for different use cases easily 
-- Many more
-- Now correctly downloads a playlist into a folder named after the playlist
+
+- User-friendly GUI for `yt-dlp`
+- Easy installation process
+- Flexible configuration options for various use cases
+- Enhanced playlist downloading: now saves playlists in folders named after them
+- Many more 👀
+
 # Prerequisites
 
-- Termux for Android 
-- Termux-api from GitHub or Fdroid depending upon your Termux installation
+- Termux for Android
+- Termux-api (available via GitHub or F-Droid, depending on your Termux installation)
+- `spotdl` (required if you wish to download Spotify music)
+- All other dependencies are installed automatically
 
-Note : if termux-api is not working properly the script will fallback to bash
+*Note: If `termux-api` encounters issues, the script will fall back to bash.*
+
 # Installation
+
+Paste the following command into your Termux terminal:
+
 ```bash
 curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && chmod +x installer.sh && ./installer.sh
 ```
-The installer will automatically install and configure the script.
-if you don't want the UI you can uninstall termux-api
+
+The installer will handle the automatic installation and configuration of the script.
 
 # Updates
-- Now uses Aria2 as the default downloader which is much faster compared to the default downloader
 
-# Todo
+- Now utilizes Aria2 as the default downloader for improved speed
+
+# To Do
+
 - ~Spotdl support~
+
+---
