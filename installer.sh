@@ -23,7 +23,7 @@ else
    echo -e "\033[0;36m $1 is working \033[0m"
 fi
 }
-
+termux-wake-lock
 clear
 echo "Starting..."
 # Request storage permission
@@ -68,6 +68,7 @@ print green "installation complete"
 #clearing cache
 pkg autoclean
 clear
+termux-wake-unlock
 print "    Press any key to continue   "
 read response
 print green "Starting config script required"
