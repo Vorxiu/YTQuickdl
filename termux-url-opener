@@ -8,8 +8,8 @@ if [[ $1 == *"open.spotify.com"* ]]; then
     echo -e "Detected Spotify link \n Starting..."
   
   termux-notification -t "Starting Download Spotify"  --alert-once --icon "get_app" --id 1  
-    $SPOTDL "$1" && termux-notification -t "Spotify download complete" --icon "done" --id 1 ||{ termux-toast -c red "Something went wrong"; echo "Press any key to exit...";read -n 1 -s;
-termux-notification -t "Spotify download failed" --icon "close" --id 1
+    $SPOTDL "$1" && termux-notification -t "Spotify download complete" --icon "done" --id 1 ||{ termux-toast -c red "Something went wrong"; 
+termux-notification -t "Spotify download failed" --icon "close" --id 1 ; echo "Press any key to exit...";read -n 1 -s;
 
 }
 
