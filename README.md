@@ -10,7 +10,7 @@
 # Prerequisites
 
 - Termux for Android
-- Termux-api (available via GitHub or F-Droid, depending on your Termux installation)
+- Termux-api (available via [GitHub](https://github.com/termux/termux-api/releases/tag/v0.50.1) or F-Droid, depending on your Termux installation)
 - `spotdl` (required if you wish to download Spotify music)
 - All other dependencies are installed automatically
 
