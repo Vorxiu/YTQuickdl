@@ -27,7 +27,7 @@ curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && 
 The installer will handle the automatic installation and configuration of the script.
 
 For installing spotdl (Optional)
-```curl -L https://raw.githubusercontent.com/spotDL/spotify-downloader/master/scripts/termux.sh | sh
+```pkg i rust -y && pip install -U spotdl
 ```
 
 # Updates
