@@ -69,7 +69,6 @@ error_check() {
 	exit 1
 }
 
-
 trap error_check ERR
 #>---------------------[Main Script]---------------------------<
 # Get the shared URL
