@@ -5,6 +5,7 @@ if [[ $1 == *"open.spotify.com"* ]]; then
         mkdir -p $download_dir
     fi
     cd $download_dir
+    echo -e "Detected Spotify link \n Starting..."
     $SPOTDL "$1" && termux-notification --title "Spotify download complete" ||{ termux-toast -c red "Something went wrong"; echo "Press any key to exit...";read -n 1 -s;
 }
 
