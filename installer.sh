@@ -18,9 +18,9 @@ if ! command -v "$1" &> /dev/null
 then
 #installing the command
 echo -e "\033[0;36mInstalling $1\033[0m"
-pkg install "$1" -y && echo -e "\033[0;32mInstalled $1 \033[0m" || echo -e "\e[31mCould not install $1 \e[0m"
+pkg install "$1" -y && echo -e "\033[0;32mInstalled $1 \033[0m" || {echo -e "\e[31mCould not install $1 \e[0m"; sleep 1;}
 else
-   echo -e "\033[0;36m •$1 is working \033[0m"
+   echo -e "\033[0;36m $1 is working \033[0m"
 fi
 }
 
@@ -29,7 +29,7 @@ echo "Starting..."
 # Request storage permission
 print blue "Allow storage permission"
 termux-setup-storage || print red "Couldn't get storage permissions"
-
+sleep 2
 # Update packages
 print blue "Updating packages"
 pkg update -y && pkg upgrade -y
@@ -44,12 +44,13 @@ echo "Checking Termux api"
 termux-toast -b black -c green -g top "Termux-api is working" && print green "Termux api is working"|| print red "Termux-api is not working"
 
 # List of commands to check
-commands=("ffmpeg" "jq" "libexpat" "openssl" "python" "aria2" "yt-dlp")
+commands=("ffmpeg" "jq" "libexpat" "python" "aria2")
 # Loop through each command in the list and check it
 for cmd in "${commands[@]}"
 do
     check "$cmd"
 done
+pip install yt-dlp || print red "couldn't install yt-dlp"
 
 # Create bin directory if it doesn't exist
 
