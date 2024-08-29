@@ -27,7 +27,8 @@ curl -O https://raw.githubusercontent.com/Vorxiu/YTQuickdl/main/installer.sh && 
 The installer will handle the automatic installation and configuration of the script.
 
 For installing spotdl (Optional)
-```pkg i rust -y && pip install -U spotdl
+```bash 
+pkg i rust -y && pip install -U spotdl
 ```
 
 # Updates
