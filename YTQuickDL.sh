@@ -172,7 +172,7 @@ echo -e "\033[1;33m• \033[1;32mURL:               \033[0m\033[0;92m$URL\033[0m
 echo -e ""
 
 #-----{download started message}-------
-termux-toast -s -g top -c gray -b black "$TYPE download Started..." || echo  "$TYPE download Started..."
+termux-toast -s -g top -c gray -b black "$video_title download Started..." || echo  "$video_title download Started..."
 print green "Downloading"
 
 #--------[Main Yt-dl Command]-----------
