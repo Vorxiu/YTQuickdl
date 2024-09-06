@@ -66,7 +66,9 @@ error_check() {
 	termux-toast -g top  -b red -c black "unexpected error ಠ⁠ ⁠ل͟⁠ ⁠ಠ"|| print red "Something went wrong"
 	termux-wake-unlock || echo "error occured"
 	termux-notification -t "Error occured" --icon "close" --id 1 
+	echo "Press any key to exit...";read -n 1 -s;
 	exit 1
+	
 }
 
 trap error_check ERR
