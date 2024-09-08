@@ -1,4 +1,5 @@
-SPOTDL="/data/data/com.termux/files/usr/bin/spotdl"
+SPOTDL="/data/data/com.termux/files/usr/bin/spotdl" #spotdl directory 
+
 if [[ $1 == *"open.spotify.com"* ]]; then
     if [[ ! -d $download_dir ]]; then
         mkdir -p $download_dir
@@ -8,7 +9,7 @@ if [[ $1 == *"open.spotify.com"* ]]; then
   
   termux-wake-lock
   termux-notification -t "Starting Download Spotify"  --alert-once --icon "get_app" --id 1  
-    $SPOTDL "$1" && termux-notification -t "Spotify download complete" --icon "done" --id 1 ||{ termux-toast -c red "Something went wrong"; 
+    $SPOTDL --forma"$1" && termux-notification -t "Spotify download complete" --icon "done" --id 1 ||{ termux-toast -c red "Something went wrong"; 
 termux-notification -t "Spotify download failed" --icon "close" --id 1 ; echo "Press any key to exit...";read -n 1 -s;
   
   termux-wake-unlock
