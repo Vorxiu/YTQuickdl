@@ -236,7 +236,7 @@ chmod +x "$HOME/bin/YTQuickDL.sh"
 cat > temp2.sh << EOF
 #!/data/data/com.termux/files/usr/bin/bash
 
-download_dir="/sdcard/$refdl_dir/songs"
+download_dir="/sdcard/$refdl_dir/songs" #spotify download directory
 EOF
 
 cat "$HOME/bin/termux-url-opener" >> temp2.sh
