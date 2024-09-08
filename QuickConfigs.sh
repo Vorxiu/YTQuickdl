@@ -16,7 +16,7 @@ prompt_text() {
   fi
 }
 
-# Function to prompt radio input
+# Function to prompt termux-spinner input
 prompt_radio() {
   local title="$1"
   local options="$2"
