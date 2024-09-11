@@ -9,7 +9,7 @@ if [[ $1 == *"open.spotify.com"* ]]; then
   
   termux-wake-lock
   termux-notification -t "Starting Download Spotify"  --alert-once --icon "get_app" --id 1  
-    $SPOTDL --format "m4a" --threads 8 download "$1" && termux-notification -t "Spotify download complete" --icon "done" --id 1 ||{ termux-toast -c red "Something went wrong"; 
+    $SPOTDL --format "m4a" --threads 4 download "$1" && termux-notification -t "Spotify download complete" --icon "done" --id 1 ||{ termux-toast -c red "Something went wrong"; 
 termux-notification -t "Spotify download failed" --icon "close" --id 1 ; echo "Press any key to exit...";read -n 1 -s;
   
   termux-wake-unlock
