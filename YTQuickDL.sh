@@ -60,7 +60,7 @@ ytdl_er() {
   pip install --upgrade yt-dlp
   pkg up aria2 -y
   yt-dlp -f "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && Complete
-
+}
 
 # Function in case a error occurs
 error_check() {
