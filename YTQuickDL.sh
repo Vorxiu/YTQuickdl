@@ -43,15 +43,6 @@ print() {
     esac
 }
 
-# Function in case of format error
-ytdl_er() {
-  termux-toast -g top -b amber -c black "Something went wrong with yt-dlp"
-  echo "Something went wrong with (missing formarts?) yt-dlp redownloading"
-  pip install --upgrade yt-dlp
-  pkg up aria2 -y
-  yt-dlp -f "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && complete
-
-}
 
 complete() {
 termux-toast -s -g bottom -b black -c green "$TYPE download complete $QUALITY"
@@ -62,13 +53,13 @@ print green "download complete"
 }
 
 
-
-
-
-
-
-
-
+# Function in case of format error
+ytdl_er() {
+  termux-toast -g top -b amber -c black "Something went wrong with yt-dlp"
+  echo "Something went wrong with (missing formarts?) yt-dlp redownloading"
+  pip install --upgrade yt-dlp
+  pkg up aria2 -y
+  yt-dlp -f "$format" $recode -o "$download_dir/%(title)s.%(ext)s" "$URL" && Complete
 
 
 # Function in case a error occurs
