@@ -149,8 +149,8 @@ if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     download_dir="$download_dir/$playlist_title"
 else
 video_title=$(yt-dlp --get-title $URL )
-fi
 
+fi
 
 
    if [ ! -d "$download_dir" ]; then
