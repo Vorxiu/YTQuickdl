@@ -148,7 +148,10 @@ playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/d
 if [ -n "$playlist_title" ] && [[ "$playlist_title" != "NA" ]]; then
     # Setting the directory
     download_dir="$download_dir/$playlist_title"
+else
+
 fi
+
 
 
    if [ ! -d "$download_dir" ]; then
