@@ -123,7 +123,7 @@ elif [ "$TYPE" = "Audio" ]; then
   recode="flac"
   format="bestaudio/best"
   sub="--no-write-sub"
-  metadata=""
+  metadata="--embed-metadata"
   download_dir="$download_dir/Music"
 
 else
