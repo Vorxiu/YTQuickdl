@@ -139,7 +139,6 @@ termux-notification -t "Starting Download $TYPE"  --alert-once --icon "get_app" 
 
 # Playlist check and retrieve the video_title
 
-
 playlist_title=$(yt-dlp --flat-playlist --print "%(playlist_title)s" "$URL" 2>/dev/null)
 
 #playlist_title=$(echo "$title" | sed -n '2p')
