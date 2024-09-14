@@ -122,7 +122,7 @@ elif [ "$TYPE" = "Audio" ]; then
   FORMAT="bestaudio[ext=flac]/bestaudio[ext=m4a]/bestaudio[ext=mp3]/bestaudio/best"
   recode="flac"
   format="bestaudio/best"
-  sub="--no-write-sub"
+  sub="--write-sub en"
   metadata="--embed-metadata"
   download_dir="$download_dir/Music"
 
