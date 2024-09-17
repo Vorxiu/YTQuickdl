@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/bin/bash
 
 # Function to prompt text input
 prompt_text() {
@@ -209,7 +209,7 @@ termux-wake-unlock
 
 #---------{Writing conifgs}------------
 cat > temp.sh << EOF
-#!/data/data/com.termux/files/usr/bin/bash
+#!/bin/bash
 
 QuickDownload() {
   FORMAT="$format_string"
