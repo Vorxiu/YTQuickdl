@@ -18,7 +18,7 @@ if ! command -v "$1" &> /dev/null
 then
 #installing the command
 echo -e "\033[0;36mInstalling $1\033[0m"
-pkg install "$1" -y && echo -e "\033[0;32mInstalled $1 \033[0m" || {echo -e "\e[31mCould not install $1 \e[0m"; sleep 1;}
+pkg install "$1" -y && echo -e "\033[0;32mInstalled $1 \033[0m" || echo -e "\e[31mCould not install $1 \e[0m"
 else
    echo -e "\033[0;36m $1 is working \033[0m"
 fi
